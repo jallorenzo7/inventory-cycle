@@ -19,7 +19,6 @@ class UsersTableSeeder extends Seeder
         $admin->address = 'Malate, Manila';
         $admin->contact = '09368574701';
         $admin->email = 'admin@admin.com';
-        $admin->status = 'active';
         $admin->password = bcrypt('admin');
         $admin->user_type = 'Admin';
         $admin->is_active = true;
@@ -32,7 +31,6 @@ class UsersTableSeeder extends Seeder
         $customer->address = 'Malate, Manila';
         $customer->contact = '09368574701';
         $customer->email = 'customer@customer.com';
-        $customer->status = 'active';
         $customer->password = bcrypt('customer');
         $customer->user_type = 'Customer';
         $customer->is_active = true;
