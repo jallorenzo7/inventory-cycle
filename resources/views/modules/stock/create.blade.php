@@ -6,16 +6,25 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8" id="part_type_motor">
                         <div class="form-group">
-                            <label for="part_name">Part Name</label>
+                            <label for="part_name">Name</label>
                             <input type="text" class="form-control" id="part_name" name="part_name">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4" id="part_type_part_no" style="display: none;">
                         <div class="form-group">
                             <label for="part_no">Part No</label>
                             <input type="text" class="form-control" id="part_no" name="part_no">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="part_no">Type</label>
+                            <select name="type" class="form-control" id="type">
+                                <option value="motor">Motor</option>
+                                <option value="part">Part</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -88,4 +97,22 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+$('#type').on('change',function(){
+    var type = $('#type').val();
+    if (type === 'motor') {
+        $('#part_type_motor').removeClass('col-md-4');
+        $('#part_type_motor').addClass('col-md-8');
+        $('[for=part_name]').html("Name");
+        $('#part_type_part_no').hide();
+    }else{
+        $('#part_type_motor').removeClass('col-md-8');
+        $('#part_type_motor').addClass('col-md-4');
+        $('[for=part_name]').html("Part Name");
+        $('#part_type_part_no').show();
+    }
+});
+</script>
 @endsection

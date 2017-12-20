@@ -30,10 +30,10 @@ class CreateUsersTable extends Migration
 
         Schema::create('stocks', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->nullable();
             $table->string('model_no')->nullable();
             $table->string('engine_no')->nullable();
             $table->string('frame_no')->nullable();
-            $table->string('part_name')->nullable();
             $table->string('part_no')->nullable();
             $table->string('color')->nullable();
             $table->string('image')->default('dummy.jpg');

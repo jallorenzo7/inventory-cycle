@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
     protected $fillable = [
+        'name',
         'model_no',
         'engine_no',
         'frame_no',
-        'part_name',
         'part_no',
         'color',
         'image',
