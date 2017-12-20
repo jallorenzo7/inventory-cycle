@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->string('part_name')->nullable();
             $table->string('part_no')->nullable();
             $table->string('color')->nullable();
+            $table->string('image')->default('dummy.jpg');
             $table->string('quantity')->nullable();
             $table->string('initial_quantity')->nullable();
             $table->string('remarks')->nullable();

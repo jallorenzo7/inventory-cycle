@@ -13,6 +13,7 @@ class Stock extends Model
         'part_name',
         'part_no',
         'color',
+        'image',
         'quantity',
         'initial_quantity',
         'remarks',

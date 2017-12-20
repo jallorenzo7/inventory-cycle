@@ -2,83 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Stock;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $stock;
+
+    public function __construct(Stock $stock)
+    {
+        $this->stock = $stock;
+    }
+
     public function index()
     {
-        //
+        $stocks = $this->stock->all();
+        return view('modules.stock.index', compact('stocks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('modules.stock.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $this->stock->save($request->all());
+        return redirect()->route('stock.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $stock = $this->stock->find($id);
+        return view('modules.stock.show', compact('stock'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $stock = $this->stock->find($id);
+        return view('modules.stock.edit', compact('stock'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $stock = $this->stock->find($id)
+            ->update($request->all());
+        return redirect()->route('stock.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $stock = $this->stock->find($id)->delete();
+        return redirect()->route('stock.index');
     }
 }
