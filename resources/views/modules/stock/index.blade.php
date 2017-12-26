@@ -1,59 +1,55 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="row">
-        <h2>Stocks</h2>
-        <a href="{{ route('stock.create') }}" class="btn btn-default">New Stock</a>
-        <br>
-        <br>
-        <div class="table-responsive">
-            <table class="table-bordered" id="stock-table">
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Name</th>
-                        <th>Part No</th>
-                        <th>Model No</th>
-                        <th>Engine No</th>
-                        <th>Frame No</th>
-                        <th>Color</th>
-                        <th>Quantity</th>
-                        <th>Initial Quantity</th>
-                        <th>Price</th>
-                        <th>Initial Price</th>
-                        <th>Discount</th>
-                        <th width="70">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($stocks as $stock)
-                    <tr>
-                        <td>{{ $stock->type }}</td>
-                        <td>{{ $stock->name }}</td>
-                        <td>{{ $stock->part_no }}</td>
-                        <td>{{ $stock->model_no }}</td>
-                        <td>{{ $stock->engine_no }}</td>
-                        <td>{{ $stock->frame_no }}</td>
-                        <td>{{ $stock->color }}</td>
-                        <td>{{ $stock->quantity }}</td>
-                        <td>{{ $stock->initial_quantity }}</td>
-                        <td>{{ $stock->price }}</td>
-                        <td>{{ $stock->initial_price }}</td>
-                        <td>{{ $stock->discount }}</td>
-                        <td>
-                            <button class="btn btn-default">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </button>
-                            <button class="btn btn-default" id="stock-delete" data-id="{{ $stock->id }}">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+<h2>Stocks</h2>
+<a href="{{ route('stock.create') }}" class="btn btn-default">New Stock</a>
+<br>
+<br>
+<div class="table-responsive">
+    <table class="table-bordered" id="stock-table">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Part No</th>
+                <th>Model No</th>
+                <th>Engine No</th>
+                <th>Frame No</th>
+                <th>Color</th>
+                <th>Quantity</th>
+                <th>Initial Quantity</th>
+                <th>Price</th>
+                <th>Initial Price</th>
+                <th>Discount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($stocks as $stock)
+            <tr>
+                <td>{{ $stock->type }}</td>
+                <td>{{ $stock->name }}</td>
+                <td>{{ $stock->part_no }}</td>
+                <td>{{ $stock->model_no }}</td>
+                <td>{{ $stock->engine_no }}</td>
+                <td>{{ $stock->frame_no }}</td>
+                <td>{{ $stock->color }}</td>
+                <td>{{ $stock->quantity }}</td>
+                <td>{{ $stock->initial_quantity }}</td>
+                <td>{{ $stock->price }}</td>
+                <td>{{ $stock->initial_price }}</td>
+                <td>{{ $stock->discount }}</td>
+                <td>
+                    <button class="btn btn-default">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-default" id="stock-delete" data-id="{{ $stock->id }}">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection
 @section('script')
