@@ -8,6 +8,7 @@
         <title>{{ config('app.name', 'GM Cycle') }}</title>
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         @yield('style')
     </head>
     <body>
