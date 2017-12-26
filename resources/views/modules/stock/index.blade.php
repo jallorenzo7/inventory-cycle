@@ -3,8 +3,11 @@
 <div class="container">
     <div class="row">
         <h2>Stocks</h2>
+        <a href="{{ route('stock.create') }}" class="btn btn-primary">New Stock</a>
+        <br>
+        <br>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="stock-table">
                 <thead>
                     <tr>
                         <th>Model No</th>
@@ -32,8 +35,8 @@
                         <td>{{ $stock->initial_price }}</td>
                         <td>{{ $stock->discount }}</td>
                         <td>
-                            <button class="btn btn-default">Edit</button>
-                            <button class="btn btn-default">Delete</button>
+                            <button class="btn btn-warning">Edit</button>
+                            <button class="btn btn-danger" id="stock-delete" data-id="{{ $stock->id }}">Delete</button>
                         </td>
                     </tr>
                     @endforeach
@@ -42,4 +45,44 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function(){
+        $('#stock-table').DataTable();
+    });
+    $(document).on('click','[id=stock-delete]', function(){
+        var id = $(this).data('id');
+        var route = '{{ url('stock') }}' + '/' + id;
+        swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    method: 'post',
+                    url: route,
+                    data:{
+                        '_token': $('input[name=_token]').val(),
+                        '_method': 'DELETE',
+                    },
+                    jsonp: false,
+                    success: function(data){
+                        swal(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        location.reload();
+                    }
+                });
+            }
+        })
+    });
+</script>
 @endsection

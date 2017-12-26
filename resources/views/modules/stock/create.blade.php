@@ -6,49 +6,50 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-8" id="part_type_motor">
-                        <div class="form-group">
-                            <label for="part_name">Name</label>
-                            <input type="text" class="form-control" id="part_name" name="part_name">
-                        </div>
-                    </div>
-                    <div class="col-md-4" id="part_type_part_no" style="display: none;">
-                        <div class="form-group">
-                            <label for="part_no">Part No</label>
-                            <input type="text" class="form-control" id="part_no" name="part_no">
-                        </div>
-                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="part_no">Type</label>
+                            <label for="type">Type</label>
                             <select name="type" class="form-control" id="type">
+                                <option value="" selected="" disabled="">Select Type</option>
                                 <option value="motor">Motor</option>
-                                <option value="part">Part</option>
+                                <option value="motor_part">Part</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="part_no">Part No</label>
+                            <input disabled type="text" class="form-control" id="part_no" name="part_no">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label for="model_no">Model No</label>
-                            <input type="text" class="form-control" id="model_no" name="model_no">
+                            <input disabled type="text" class="form-control" id="model_no" name="model_no">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="engine_no">Engine No</label>
-                            <input type="text" class="form-control" id="engine_no" name="engine_no">
+                            <input disabled type="text" class="form-control" id="engine_no" name="engine_no">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="frame_no">Frame No</label>
-                            <input type="text" class="form-control" id="frame_no" name="frame_no">
+                            <input disabled type="text" class="form-control" id="frame_no" name="frame_no">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="color">Color</label>
-                            <input type="text" class="form-control" id="color" name="color">
+                            <input disabled type="text" class="form-control" id="color" name="color">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -103,15 +104,17 @@
 $('#type').on('change',function(){
     var type = $('#type').val();
     if (type === 'motor') {
-        $('#part_type_motor').removeClass('col-md-4');
-        $('#part_type_motor').addClass('col-md-8');
-        $('[for=part_name]').html("Name");
-        $('#part_type_part_no').hide();
+        $('#model_no').prop( "disabled", false);
+        $('#engine_no').prop( "disabled", false);
+        $('#frame_no').prop( "disabled", false);
+        $('#color').prop( "disabled", false);
+        $('#part_no').prop( "disabled", true).val('');
     }else{
-        $('#part_type_motor').removeClass('col-md-8');
-        $('#part_type_motor').addClass('col-md-4');
-        $('[for=part_name]').html("Part Name");
-        $('#part_type_part_no').show();
+        $('#model_no').prop( "disabled", true).val('');
+        $('#engine_no').prop( "disabled", true).val('');
+        $('#frame_no').prop( "disabled", true).val('');
+        $('#color').prop( "disabled", true).val('');
+        $('#part_no').prop( "disabled", false);
     }
 });
 </script>
