@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\Stock;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -80,5 +82,51 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function welcome()
+    {
+        $motors = Stock::where('quantity', '!=', '0')->where('type', 'motor')->get();
+        $parts = Stock::where('quantity', '!=', '0')->where('type', 'part')->get();
+        return view('welcome', compact('motors', 'parts'));
+    }
+
+    public function addOrder(Request $request)
+    {
+        if (empty($request->id)) {
+            return response()->json(['error' => 'Bad Request'], 403);
+        }
+        $user = \Auth::user();
+        $data = [
+            'user_id' => \Auth::id(),
+            'stock_id' => $request->id,
+            'quantity' => 1,
+            'status' => 'wishlist',
+        ];
+        $exist = Order::where('user_id', $data['user_id'])->where('stock_id', $data['stock_id'])->count();
+        if ($exist) {
+            return response()->json(['error' => 'Bad Request'], 403);
+        }
+        $order = new Order;
+        $order->fill($data)->save();
+        return response()->json($user);
+
+    }
+
+    public function removeOrder(Request $request)
+    {
+        if (empty($request->id)) {
+            return response()->json(['error' => 'Bad Request'], 403);
+        }
+        $user = \Auth::user();
+        $data = [
+            'user_id' => \Auth::id(),
+            'stock_id' => $request->id,
+        ];
+        $exist = Order::where('user_id', $data['user_id'])->where('stock_id', $data['stock_id'])->first();
+        $del = Order::find($exist->id);
+        $del->delete();
+        return response()->json();
+
     }
 }
