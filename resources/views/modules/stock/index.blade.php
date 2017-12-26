@@ -39,9 +39,9 @@
                 <td>{{ $stock->initial_price }}</td>
                 <td>{{ $stock->discount }}</td>
                 <td>
-                    <button class="btn btn-default">
+                    <a href="{{ route('stock.edit', $stock->id) }}" class="btn btn-default">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
+                    </a>
                     <button class="btn btn-default" id="stock-delete" data-id="{{ $stock->id }}">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>

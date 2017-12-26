@@ -1,54 +1,39 @@
 @extends('layouts.app')
 @section('content')
 <div class="row">
-    <div class="col-md-3">
-        <h4>Products</h4>
-        <div class="list-group">
-            <a href="#" class="list-group-item">Motorcycles</a>
-            <a href="#" class="list-group-item">Parts / Accessories</a>
-        </div>
-        <h4>Brands</h4>
-        <div class="list-group">
-            <a href="#" class="list-group-item">Honda</a>
-            <a href="#" class="list-group-item">Kawasaki</a>
-            <a href="#" class="list-group-item">Suzuki</a>
-            <a href="#" class="list-group-item">Yamaha</a>
-        </div>
-    </div>
-    <div class="col-md-9">
-        <div class="jumbotron">
-            <h1>DM Cycle</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-3 col-md-offset-3">
-        <div class="thumbnail">
-            <div class="well">Yamaha 32-A2</div>
-            <img src="{{ asset('images/dummy.jpg') }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
-            <div class="caption">
-                <button class="btn btn-success form-control">Reserve</button>
+    <div class="col-md-4">
+        <div class="well">
+            <i class="fa fa-user fa-4x fa-fw" aria-hidden="true"></i>
+            <div class="text">
+                <h3>Users</h3>
+                <p>Number of users : 201</p>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="thumbnail">
-            <div class="well">Suzuki X2ACF</div>
-            <img src="{{ asset('images/dummy.jpg') }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
-            <div class="caption">
-                <button class="btn btn-success form-control">Reserve</button>
+    <div class="col-md-4">
+        <div class="well">
+            <i class="fa fa-shopping-cart fa-4x fa-fw" aria-hidden="true"></i>
+            <div class="text">
+                <h3>Stocks</h3>
+                <p>Items : 200</p>
             </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="thumbnail">
-            <div class="well">Kawazaki C31AF-2A</div>
-            <img src="{{ asset('images/dummy.jpg') }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
-            <div class="caption">
-                <button class="btn btn-success form-control">Reserve</button>
+    <div class="col-md-4">
+        <div class="well">
+            <i class="fa fa-exchange fa-4x fa-fw" aria-hidden="true"></i>
+            <div class="text">
+                <h3>Transcation</h3>
+                <p>Total transaction : 201</p>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('style')
+<style type="text/css">
+.text {
+    display:inline-block;
+}
+</style>
 @endsection
