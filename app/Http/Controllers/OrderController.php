@@ -53,6 +53,6 @@ class OrderController extends Controller
     public function destroy($id)
     {
         $order = $this->order->find($id)->delete();
-        return redirect()->route('order.index');
+        return redirect()->route('cart');
     }
 }

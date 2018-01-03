@@ -17,5 +17,7 @@ Route::get('/', 'UserController@welcome');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::resource('stock', 'StockController');
+Route::resource('order', 'OrderController');
 Route::post('add/order/stock', 'UserController@addOrder');
 Route::post('remove/order/stock', 'UserController@removeOrder');
+Route::get('/cart', 'HomeController@cart')->name('cart');

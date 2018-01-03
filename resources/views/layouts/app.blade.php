@@ -35,6 +35,9 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                             @else
+                            @if(Auth::user())
+                            <li><a href="{{ route('cart') }}">Cart</a></li>
+                            @endif
                             @if(Auth::user()->user_type === 'Admin')
                             <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             @endif

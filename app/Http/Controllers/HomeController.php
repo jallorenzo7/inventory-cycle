@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Stock;
+
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $stock;
+    public function __construct(Stock $stock)
     {
         $this->middleware('auth');
+        $this->stock = $stock;
     }
 
     /**
@@ -29,4 +28,19 @@ class HomeController extends Controller
         return view('dashboard');
     }
 
+    public function cart()
+    {
+        $xx = \Auth::user()->orders()->get()->toArray();
+        $orders = [];
+        foreach ($xx as $key => $order) {
+            $stock = $this->stock->where('id', $order['stock_id'])->first()->toArray();
+            $orders[$key] = $stock;
+            $x = array(
+                'status' => $order['status'],
+                'order_id' => $order['id'],
+            );
+            $orders[$key] = array_merge($orders[$key], $x);
+        }
+        return view('modules.cart.index', compact('orders'));
+    }
 }
