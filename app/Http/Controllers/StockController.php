@@ -27,6 +27,12 @@ class StockController extends Controller
 
     public function store(Request $request)
     {
+        if (empty($request->discount)) {
+            $request->merge(['discount' => 0]);
+        }
+        if (empty($request->discount)) {
+            $request->discount = 0;
+        }
         $this->stock->fill($request->all())->save();
         return redirect()->route('stock.index');
     }
@@ -45,6 +51,9 @@ class StockController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (empty($request->discount)) {
+            $request->merge(['discount' => 0]);
+        }
         $stock = $this->stock->find($id)
             ->update($request->all());
         return redirect()->route('stock.index');
