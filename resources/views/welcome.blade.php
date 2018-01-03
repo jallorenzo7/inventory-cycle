@@ -17,7 +17,7 @@
     </div>
     <div class="col-md-9">
         <div class="jumbotron">
-            <h1>DM Cycle</h1>
+            <h1>GM Cycle</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
         </div>
     </div>
@@ -29,14 +29,16 @@
                     <div class="thumbnail">
                         <div class="well">{{$motor->name}}</div>
                         @if($motor->discount != "0")
-                        <h3 style="color:red">Sale!</h3>
+                        <div class="alert alert-info">
+                          <strong>SALE!</strong>
+                        </div>
                         @endif
                         <img src="{{ asset('images/dummy.jpg') }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
                         <div class="caption">
                             @if(\Auth::guest())
                             <a href="{{url('login')}}" class="btn btn-success form-control">Reserve</a>
                             @else
-                            <button class="btn form-control {{ \Auth::user()->orders()->where('stock_id', $motor->id)->count() ? "btn-danger":"btn-success" }}" data-id="{{$motor->id}}" id="btn_reserve">Reserve</button>
+                            <button class="btn form-control {{ \Auth::user()->orders()->where('stock_id', $motor->id)->count() ? "btn-danger":"btn-info" }}" data-id="{{$motor->id}}" id="btn_reserve">Reserve</button>
                             @endif
                         </div>
                     </div>
@@ -52,14 +54,24 @@
     $(document).on('click','[id=btn_reserve]', function(){
         var id = $(this).data('id');
         var clas = $(this).attr('class').toString();
-        if (clas === "btn form-control btn-success") {
+        if (clas === "btn form-control btn-info") {
             var route = "{{url('add/order/stock')}}";
-                $(this).removeClass('btn-success');
-                $(this).addClass('btn-danger');
+                $(this).removeClass('btn-info');
+                $(this).addClass('btn-success');
+                swal(
+                    'Added!',
+                    'Your item added from wishlist',
+                    'success'
+                )
         }else{
             var route = "{{url('remove/order/stock')}}";
-                $(this).removeClass('btn-danger');
-                $(this).addClass('btn-success');
+                $(this).removeClass('btn-success');
+                $(this).addClass('btn-info');
+                swal(
+                    'Removed!',
+                    'Your item removed from wishlist',
+                    'success'
+                )
         }
         $.ajax({
         method: 'post',

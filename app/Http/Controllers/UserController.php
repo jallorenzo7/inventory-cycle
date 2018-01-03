@@ -110,7 +110,6 @@ class UserController extends Controller
         $order = new Order;
         $order->fill($data)->save();
         return response()->json($user);
-
     }
 
     public function removeOrder(Request $request)
