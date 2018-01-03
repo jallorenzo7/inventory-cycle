@@ -38,7 +38,7 @@
                             @if(\Auth::guest())
                             <a href="{{url('login')}}" class="btn btn-success form-control">Reserve</a>
                             @else
-                            <button class="btn form-control {{ \Auth::user()->orders()->where('stock_id', $motor->id)->count() ? "btn-danger":"btn-info" }}" data-id="{{$motor->id}}" id="btn_reserve">Reserve</button>
+                            <button class="btn form-control {{ \Auth::user()->orders()->where('stock_id', $motor->id)->count() ? "btn-success":"btn-info" }}" data-id="{{$motor->id}}" id="btn_reserve">Reserve</button>
                             @endif
                         </div>
                     </div>
