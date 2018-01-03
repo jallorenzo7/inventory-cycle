@@ -4,24 +4,33 @@
     <div class="col-md-3">
         <h4>Products</h4>
         <div class="list-group">
-            <a href="{{url('/motorcycles')}}" class="list-group-item">Motorcycles</a>
-            <a href="{{url('/parts')}}" class="list-group-item">Parts / Accessories</a>
+            <a href="{{url('/motorcycles')}}" class="list-group-item {{ Request::url() == url('/motorcycles') ? 'active' : null }}">Motorcycles</a>
+            <a href="{{url('/parts')}}" class="list-group-item {{ Request::url() == url('/parts') ? 'active' : null }}">Parts / Accessories</a>
         </div>
     </div>
     <div class="col-md-9">
         <div class="jumbotron">
-            <h1>GM Cycle</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+            <h1>Search product:</h1>
+            <div class="row">
+                <form action="{{ Request::url() == url('/motorcycles') ? url('motorcycles') : url('/parts') }}">
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="search">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success">find!</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 <div class="row">
-    @foreach($motors as $coun => $motor)
+    @foreach($items as $coun => $item)
             {{-- @if($coun < 3) --}}
                 <div class="col-md-3 {{$coun == 0 ? "col-md-offset-3": null}}">
                     <div class="thumbnail">
-                        <div class="well">{{$motor->name}}</div>
-                        @if($motor->discount != "0")
+                        <div class="well">{{$item->name}}</div>
+                        @if($item->discount != "0")
                         <div class="alert alert-info">
                           <strong>SALE!</strong>
                         </div>
@@ -31,34 +40,8 @@
                             @if(\Auth::guest())
                             <a href="{{url('login')}}" class="btn btn-success form-control">Reserve</a>
                             @else
-                            <button class="btn form-control {{ \Auth::user()->orders()->where('stock_id', $motor->id)->count() ? "btn-danger":"btn-success" }}" data-id="{{$motor->id}}" id="btn_reserve">
-                            {{ \Auth::user()->orders()->where('stock_id', $motor->id)->count() ? "Remove from Wishlist": "Reserve" }}
-                            </button>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            {{-- @endif --}}
-    @endforeach
-</div>
-<div class="row">
-    @foreach($parts as $part)
-            {{-- @if($coun < 3) --}}
-                <div class="col-md-3 {{$coun == 0 ? "col-md-offset-3": null}}">
-                    <div class="thumbnail">
-                        <div class="well">{{$part->name}}</div>
-                        @if($part->discount != "0")
-                        <div class="alert alert-info">
-                          <strong>SALE!</strong>
-                        </div>
-                        @endif
-                        <img src="{{ asset('images/dummy.jpg') }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
-                        <div class="caption">
-                            @if(\Auth::guest())
-                            <a href="{{url('login')}}" class="btn btn-success form-control">Reserve</a>
-                            @else
-                            <button class="btn form-control {{ \Auth::user()->orders()->where('stock_id', $part->id)->count() ? "btn-danger":"btn-success" }}" data-id="{{$part->id}}" id="btn_reserve">
-                            {{ \Auth::user()->orders()->where('stock_id', $part->id)->count() ? "Remove from Wishlist": "Reserve" }}
+                            <button class="btn form-control {{ \Auth::user()->orders()->where('stock_id', $item->id)->count() ? "btn-danger":"btn-success" }}" data-id="{{$item->id}}" id="btn_reserve">
+                            {{ \Auth::user()->orders()->where('stock_id', $item->id)->count() ? "Remove from Wishlist": "Reserve" }}
                             </button>
                             @endif
                         </div>

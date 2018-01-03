@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use App\Transaction;
 use Illuminate\Http\Request;
 
@@ -9,15 +10,16 @@ class TransactionController extends Controller
 {
     protected $transaction;
 
-    public function __construct(Transaction $transaction)
+    public function __construct(Transaction $transaction, Order $order)
     {
         $this->transaction = $transaction;
+        $this->order = $order;
     }
 
     public function index()
     {
-        $transactions = $this->transaction->all();
-        return view('modules.transaction.index', compact('transactions'));
+        $orders = $this->order->get();
+        return view('modules.transaction.index', compact('orders'));
     }
 
     public function create()
@@ -39,8 +41,8 @@ class TransactionController extends Controller
 
     public function edit($id)
     {
-        $transaction = $this->transaction->find($id);
-        return view('modules.transaction.edit', compact('transaction'));
+        $order = $this->order->find($id);
+        return view('modules.transaction.edit', compact('order'));
     }
 
     public function update(Request $request, $id)

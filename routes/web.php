@@ -20,4 +20,8 @@ Route::resource('stock', 'StockController');
 Route::resource('order', 'OrderController');
 Route::post('add/order/stock', 'UserController@addOrder');
 Route::post('remove/order/stock', 'UserController@removeOrder');
+Route::get('/motorcycles', 'StockController@getMotor');
+Route::get('/parts', 'StockController@getParts');
 Route::get('/cart', 'HomeController@cart')->name('cart');
+Route::get('/transactions', 'TransactionController@index');
+Route::get('/transaction/edit/{id}', 'TransactionController@edit');

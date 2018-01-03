@@ -21,15 +21,17 @@
             </div>
         </div>
     </a>
-    <div class="col-md-4">
-        <div class="well">
-            <i class="fa fa-exchange fa-4x fa-fw" aria-hidden="true"></i>
-            <div class="text">
-                <h3>Transcation</h3>
-                <p>Total transaction : 201</p>
+    <a href="{{url('transactions')}}">
+        <div class="col-md-4">
+            <div class="well">
+                <i class="fa fa-exchange fa-4x fa-fw" aria-hidden="true"></i>
+                <div class="text">
+                    <h3>Transaction</h3>
+                    <p>Total transaction : 201</p>
+                </div>
             </div>
         </div>
-    </div>
+    </a>
 </div>
 @endsection
 @section('style')

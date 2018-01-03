@@ -64,4 +64,24 @@ class StockController extends Controller
         $stock = $this->stock->find($id)->delete();
         return redirect()->route('stock.index');
     }
+
+    public function getMotor(Request $request)
+    {
+        if (isset($request->search)) {
+            $items = Stock::orWhere('name', 'like', '%' . $request->search . '%')->where('type', 'motor')->get();
+        } else {
+            $items = Stock::where('type', 'motor')->get();
+        }
+        return view('modules.cart.search', compact('items'));
+    }
+
+    public function getParts(Request $request)
+    {
+        if (isset($request->search)) {
+            $items = Stock::orWhere('name', 'like', '%' . $request->search . '%')->where('type', 'part')->get();
+        } else {
+            $items = Stock::where('type', 'part')->get();
+        }
+        return view('modules.cart.search', compact('items'));
+    }
 }

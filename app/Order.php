@@ -12,4 +12,14 @@ class Order extends Model
         'quantity',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function stock()
+    {
+        return $this->belongsTo('App\Stock', 'stock_id');
+    }
 }
