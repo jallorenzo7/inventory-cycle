@@ -5,7 +5,6 @@
         <h2>Billing</h2>
         <div class="panel panel-default">
             <div class="panel-body">
-                {{ csrf_field() }}
                 <input type="hidden" name="order_id" value="{{$order->id}}">
                 <div class="row">
                     <div class="col-md-6">
@@ -31,7 +30,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="price">Price</label>
-                            <span class="form-control">{{ $order->stock()->first()->price }}</span>
+                            <span class="form-control" id="total_amount">{{ $order->stock()->first()->price }}</span>
                         </div>
                     </div>
                 </div>
@@ -39,6 +38,9 @@
         </div>
         <div class="panel panel-default">
             <form action="" method="POST">
+                {{ csrf_field() }}
+                <input type="hidden" name="user_id" value="{{ $order->user()->first()->id }}">
+                <input type="hidden" name="stock_id" value="{{ $order->stock()->first()->name }}">
                 <div class="panel-body">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -49,7 +51,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="total">Total</label>
-                            <input type="text" class="form-control" value="" id="total" name="total">
+                            <input type="text" class="form-control" disabled value="" id="total" name="total">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -95,6 +97,11 @@
 <script>
     $(document).ready(function(){
         $('#billing-table').DataTable();
+    });
+
+    $('[id=amount_received]').on('keyup', function(){
+        var amount = $(this).val();
+        console.log(amount);
     });
 </script>
 @endsection

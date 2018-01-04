@@ -13,4 +13,9 @@ class Transaction extends Model
         'total',
         'date_transaction',
     ];
+
+    public function order()
+    {
+        return $this->belongsTo('App\Order', 'order_transaction');
+    }
 }

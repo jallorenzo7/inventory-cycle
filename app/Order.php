@@ -22,4 +22,9 @@ class Order extends Model
     {
         return $this->belongsTo('App\Stock', 'stock_id');
     }
+
+    public function transactions()
+    {
+        return $this->belongsToMany('App\Transaction', 'order_transaction');
+    }
 }

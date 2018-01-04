@@ -66,12 +66,12 @@ class TransactionController extends Controller
     public function billingIndex()
     {
         $orders = $this->order->get();
-        return view('modules.transaction.index', compact('orders'));
+        return view('modules.billing.index', compact('orders'));
     }
 
     public function billingEdit($id)
     {
         $order = $this->order->find($id);
-        return view('modules.transaction.edit', compact('order'));
+        return view('modules.billing.edit', compact('order'));
     }
 }
