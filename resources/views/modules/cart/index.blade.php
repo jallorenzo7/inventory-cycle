@@ -29,6 +29,12 @@
                         <i class="fa fa-remove" aria-hidden="true"></i>
                         </button>
                     </form>
+
+                    <a href="{{ url('billing/edit/'. $order['order_id']) }}">
+                    <button class="btn btn-default">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </button>
+                    </a>
                 </td>
             </tr>
             @endforeach

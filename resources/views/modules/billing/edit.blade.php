@@ -42,6 +42,7 @@
                 </div>
             </div>
         </div>
+        @if(Auth::user()->user_type === 'Admin')
         <div class="panel panel-default">
             <form action="" method="POST">
                 {{ csrf_field() }}
@@ -75,6 +76,7 @@
                 </div>
             </form>
         </div>
+        @endif
     </div>
     <div class="row">
         <div class="panel panel-default">
