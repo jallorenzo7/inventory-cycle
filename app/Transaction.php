@@ -18,4 +18,14 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\Order', 'order_transaction');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function stock()
+    {
+        return $this->belongsTo('App\Stock', 'stock_id');
+    }
 }

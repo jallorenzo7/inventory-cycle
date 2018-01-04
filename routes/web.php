@@ -27,3 +27,5 @@ Route::get('/cart', 'HomeController@cart')->name('cart');
 Route::get('/billing', 'TransactionController@billingIndex');
 Route::get('/billing/edit/{id}', 'TransactionController@billingEdit');
 Route::post('/billing/edit/{id}', 'TransactionController@billingUpdate');
+Route::get('/transactions', 'OrderController@transactions');
+Route::get('/transaction-report', 'OrderController@transactionReport')->name('transaction.report');

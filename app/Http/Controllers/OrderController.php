@@ -3,15 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Transaction;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
     protected $order;
 
-    public function __construct(Order $order)
+    protected $transaction;
+
+    public function __construct(Order $order, Transaction $transaction)
     {
         $this->order = $order;
+        $this->transaction = $transaction;
+    }
+
+    public function transactionReport(Request $request)
+    {
+        $data = $request->all();
+        $date = array(
+            'from' => $data['from'],
+            'to' => empty($data['to']) ? $data['from'] : $data['to'],
+        );
+        $transactions = $this->transaction->whereBetween('date_transaction', array($date['from'], $date['to']))->get();
+        $total_amount_recevied = $transactions->sum('amount_received');
+
+        return view('modules.transaction.report', compact('transactions', 'total_amount_recevied', 'date'));
+    }
+
+    public function transactions()
+    {
+        $transactions = $this->transaction->all();
+        return view('modules.transaction.index', compact('transactions'));
     }
 
     public function index()
