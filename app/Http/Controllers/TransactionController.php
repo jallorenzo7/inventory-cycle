@@ -60,7 +60,34 @@ class TransactionController extends Controller
 
     public function billingUpdate(Request $request)
     {
-        dd($request);
+        $data = $request->all();
+        $order = $this->order->find($data['order_id']);
+        $transactions = $order->transactions()->get();
+        $price = 0;
+        if ($order->transactions()->count() === 0) {
+            $price = (float) $order->stock()->first()->price;
+        } else {
+            foreach ($transactions as $t) {
+                $price = (float) $t->total;
+            }
+        }
+
+        if ($price < (float) $data['amount_received']) {
+            return redirect(url('/billing/edit/' . $data['order_id']));
+        }
+        if ((float) $price > (float) $data['amount_received']) {
+            $order->status = "on-going";
+        }
+
+        if ((float) $price === (float) $data['amount_received']) {
+            $order->status = "completed";
+        }
+        $order->save();
+        $newTransaction = $this->transaction;
+        $newTransaction->fill($data)->save();
+        $order->transactions()->attach($newTransaction->id);
+        return redirect(url('/billing/edit/' . $data['order_id']));
+
     }
 
     public function billingIndex()
@@ -72,6 +99,16 @@ class TransactionController extends Controller
     public function billingEdit($id)
     {
         $order = $this->order->find($id);
-        return view('modules.billing.edit', compact('order'));
+        $transactions = $order->transactions()->get();
+        $price = 0;
+
+        if ($order->transactions()->count() === 0) {
+            $price = (float) $order->stock()->first()->price;
+        } else {
+            foreach ($transactions as $t) {
+                $price = (float) $t->total;
+            }
+        }
+        return view('modules.billing.edit', compact('order', 'price', 'transactions'));
     }
 }
