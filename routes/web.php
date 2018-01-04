@@ -23,5 +23,7 @@ Route::post('remove/order/stock', 'UserController@removeOrder');
 Route::get('/motorcycles', 'StockController@getMotor');
 Route::get('/parts', 'StockController@getParts');
 Route::get('/cart', 'HomeController@cart')->name('cart');
-Route::get('/transactions', 'TransactionController@index');
-Route::get('/transaction/edit/{id}', 'TransactionController@edit');
+
+Route::get('/billing', 'TransactionController@billingIndex');
+Route::get('/billing/edit/{id}', 'TransactionController@billingEdit');
+Route::post('/billing/edit/{id}', 'TransactionController@billingUpdate');

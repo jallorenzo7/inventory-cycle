@@ -24,7 +24,7 @@
                 <td>{{ $order->stock()->first()->discount }}</td>
                 <td>{{ $order->status }}</td>
                 <td>
-                    <a href="{{ url('transaction/edit/'. $order->id) }}">
+                    <a href="{{ url('billing/edit/'. $order->id) }}">
                     <button class="btn btn-default">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </button>

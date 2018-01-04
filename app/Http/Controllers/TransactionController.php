@@ -57,4 +57,21 @@ class TransactionController extends Controller
         $transaction = $this->transaction->find($id)->delete();
         return redirect()->route('transaction.index');
     }
+
+    public function billingUpdate(Request $request)
+    {
+        dd($request);
+    }
+
+    public function billingIndex()
+    {
+        $orders = $this->order->get();
+        return view('modules.transaction.index', compact('orders'));
+    }
+
+    public function billingEdit($id)
+    {
+        $order = $this->order->find($id);
+        return view('modules.transaction.edit', compact('order'));
+    }
 }

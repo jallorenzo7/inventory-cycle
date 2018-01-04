@@ -21,7 +21,7 @@
             </div>
         </div>
     </a>
-    <a href="{{url('transactions')}}">
+    <a href="{{url('billing')}}">
         <div class="col-md-4">
             <div class="well">
                 <i class="fa fa-shopping-basket fa-4x fa-fw" aria-hidden="true"></i>
