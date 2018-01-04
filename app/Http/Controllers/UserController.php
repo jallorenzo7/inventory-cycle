@@ -86,8 +86,29 @@ class UserController extends Controller
 
     public function welcome()
     {
-        $motors = Stock::where('quantity', '!=', '0')->where('type', 'motor')->get();
-        $parts = Stock::where('quantity', '!=', '0')->where('type', 'part')->get();
+        $dMotors = Stock::where('quantity', '!=', '0')->where('type', 'motor')->get();
+        $motors = [];
+        $check = ['completed', 'on-going'];
+        foreach ($dMotors as $v) {
+            if ($v->order()->first()) {
+                $order = $v->order()->first();
+                if (in_array($order->status, $check)) {
+                    continue;
+                }
+            }
+            $motors[] = $v;
+        }
+        $dParts = Stock::where('quantity', '!=', '0')->where('type', 'part')->get();
+        $parts = [];
+        foreach ($dParts as $v) {
+            if ($v->order()->first()) {
+                $order = $v->order()->first();
+                if (in_array($order->status, $check)) {
+                    continue;
+                }
+            }
+            $parts[] = $v;
+        }
         return view('welcome', compact('motors', 'parts'));
     }
 

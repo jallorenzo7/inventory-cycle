@@ -22,4 +22,9 @@ class Stock extends Model
         'discount',
         'type',
     ];
+
+    public function order()
+    {
+        return $this->hasOne('App\Order', 'stock_id');
+    }
 }

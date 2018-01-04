@@ -68,9 +68,20 @@ class StockController extends Controller
     public function getMotor(Request $request)
     {
         if (isset($request->search)) {
-            $items = Stock::orWhere('name', 'like', '%' . $request->search . '%')->where('type', 'motor')->get();
+            $results = Stock::orWhere('name', 'like', '%' . $request->search . '%')->where('type', 'motor')->get();
         } else {
-            $items = Stock::where('type', 'motor')->get();
+            $results = Stock::where('type', 'motor')->get();
+        }
+        $check = ['completed', 'on-going'];
+        $items = [];
+        foreach ($results as $v) {
+            if ($v->order()->first()) {
+                $order = $v->order()->first();
+                if (in_array($order->status, $check)) {
+                    continue;
+                }
+            }
+            $items[] = $v;
         }
         return view('modules.cart.search', compact('items'));
     }
@@ -78,9 +89,20 @@ class StockController extends Controller
     public function getParts(Request $request)
     {
         if (isset($request->search)) {
-            $items = Stock::orWhere('name', 'like', '%' . $request->search . '%')->where('type', 'part')->get();
+            $results = Stock::orWhere('name', 'like', '%' . $request->search . '%')->where('type', 'part')->get();
         } else {
-            $items = Stock::where('type', 'part')->get();
+            $results = Stock::where('type', 'part')->get();
+        }
+        $check = ['completed', 'on-going'];
+        $items = [];
+        foreach ($results as $v) {
+            if ($v->order()->first()) {
+                $order = $v->order()->first();
+                if (in_array($order->status, $check)) {
+                    continue;
+                }
+            }
+            $items[] = $v;
         }
         return view('modules.cart.search', compact('items'));
     }
