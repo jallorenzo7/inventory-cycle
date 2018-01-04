@@ -24,6 +24,17 @@
     <a href="{{url('transactions')}}">
         <div class="col-md-4">
             <div class="well">
+                <i class="fa fa-shopping-basket fa-4x fa-fw" aria-hidden="true"></i>
+                <div class="text">
+                    <h3>Orders</h3>
+                    <p>Total transaction : 201</p>
+                </div>
+            </div>
+        </div>
+    </a>
+    <a href="{{url('transactions')}}">
+        <div class="col-md-4">
+            <div class="well">
                 <i class="fa fa-exchange fa-4x fa-fw" aria-hidden="true"></i>
                 <div class="text">
                     <h3>Transaction</h3>
