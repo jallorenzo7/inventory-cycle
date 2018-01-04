@@ -47,7 +47,7 @@
                 {{ csrf_field() }}
                 <input type="hidden" name="order_id" value="{{$order->id}}">
                 <input type="hidden" name="user_id" value="{{ $order->user()->first()->id }}">
-                <input type="hidden" name="stock_id" value="{{ $order->stock()->first()->name }}">
+                <input type="hidden" name="stock_id" value="{{ $order->stock()->first()->id }}">
                 <div class="panel-body">
                     <div class="col-md-4">
                         <div class="form-group">
