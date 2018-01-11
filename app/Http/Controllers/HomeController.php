@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use App\Stock;
+use App\Transaction;
 
 class HomeController extends Controller
 {
@@ -25,7 +27,10 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $stock_count = $this->stock->count();
+        $order_count = Order::count();
+        $transaction_count = Transaction::count();
+        return view('dashboard', compact('stock_count', 'order_count', 'transaction_count'));
     }
 
     public function cart()

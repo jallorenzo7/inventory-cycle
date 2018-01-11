@@ -36,46 +36,61 @@
                     <div class="col-md-6 col-md-offset-6">
                         <div class="form-group">
                             <label for="price">Remaining Balance</label>
+                            @if($order->status === "completed")
+                            <span class="form-control" id="total_amount">0.00</span>
+                            @else
                             <span class="form-control" id="total_amount">{{ $price }}</span>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @if(Auth::user()->user_type === 'Admin')
-        <div class="panel panel-default">
-            <form action="" method="POST">
-                {{ csrf_field() }}
-                <input type="hidden" name="order_id" value="{{$order->id}}">
-                <input type="hidden" name="user_id" value="{{ $order->user()->first()->id }}">
-                <input type="hidden" name="stock_id" value="{{ $order->stock()->first()->id }}">
+        @if(Auth::user()->user_type === 'Admin' && $order->status !== "completed")
+            <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="amount_received">Amount Received</label>
-                            <input type="text" class="form-control" value="" oninput="validateNumber(this);" id="amount_received" name="amount_received">
+                    <form action="" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="order_id" value="{{$order->id}}">
+                        <input type="hidden" name="user_id" value="{{ $order->user()->first()->id }}">
+                        <input type="hidden" name="stock_id" value="{{ $order->stock()->first()->id }}">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="amount_received">Amount Received</label>
+                                <input type="text" class="form-control" value="" oninput="validateNumber(this);" id="amount_received" name="amount_received">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="total">Remaining Balance</label>
-                            <input type="text" class="form-control" readonly value="" id="total" name="total">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="total">Remaining Balance</label>
+                                <input type="text" class="form-control" readonly value="" id="total" name="total">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="date_transaction">Date Transaction</label>
-                            <input type="date" class="form-control"  id="date_transaction" value="{{date('Y-m-d')}}" name="date_transaction">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="date_transaction">Date Transaction</label>
+                                <input type="date" class="form-control"  id="date_transaction" value="{{date('Y-m-d')}}" name="date_transaction">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <button class="btn btn-success form-control">Submit Transaction</button>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-success form-control">Submit Transaction</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+                    <form action="{{ url('/billing/discount') }}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="order_id" value="{{$order->id}}">
+                        <input type="hidden" name="user_id" value="{{ $order->user()->first()->id }}">
+                        <input type="hidden" name="stock_id" value="{{ $order->stock()->first()->id }}">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary form-control">Pay in Full</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
+            </div>
         @endif
     </div>
     <div class="row">

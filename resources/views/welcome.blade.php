@@ -11,7 +11,6 @@
     <div class="col-md-9">
         <div class="jumbotron">
             <h1>GM Cycle</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
         </div>
     </div>
 </div>
@@ -21,11 +20,6 @@
                 <div class="col-md-3 {{$coun == 0 ? "col-md-offset-3": null}}">
                     <div class="thumbnail">
                         <div class="well">{{$motor->name}}</div>
-                        @if($motor->discount != "0")
-                        <div class="alert alert-info">
-                          <strong>SALE!</strong>
-                        </div>
-                        @endif
                         <img src="{{ asset('images/dummy.jpg') }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
                         <div class="caption">
                             @if(\Auth::guest())
@@ -47,11 +41,6 @@
                 <div class="col-md-3 {{$coun == 0 ? "col-md-offset-3": null}}">
                     <div class="thumbnail">
                         <div class="well">{{$part->name}}</div>
-                        @if($part->discount != "0")
-                        <div class="alert alert-info">
-                          <strong>SALE!</strong>
-                        </div>
-                        @endif
                         <img src="{{ asset('images/dummy.jpg') }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
                         <div class="caption">
                             @if(\Auth::guest())

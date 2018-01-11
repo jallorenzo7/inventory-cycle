@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="discount">Discount</label>
+                                <label for="discount">Discount (%)</label>
                                 <input type="text" class="form-control" value="{{$stock->discount}}" id="discount" name="discount">
                             </div>
                         </div>

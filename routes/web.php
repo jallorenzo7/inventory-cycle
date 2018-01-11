@@ -29,3 +29,5 @@ Route::get('/billing/edit/{id}', 'TransactionController@billingEdit');
 Route::post('/billing/edit/{id}', 'TransactionController@billingUpdate');
 Route::get('/transactions', 'OrderController@transactions');
 Route::get('/transaction-report', 'OrderController@transactionReport')->name('transaction.report');
+
+Route::post('/billing/discount', 'TransactionController@billingDiscount');
