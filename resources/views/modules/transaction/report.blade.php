@@ -30,3 +30,8 @@
     </table>
 </div>
 @endsection
+@section('script')
+<script>
+    window.print();
+</script>
+@endsection
