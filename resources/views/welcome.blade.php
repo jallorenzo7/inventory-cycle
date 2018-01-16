@@ -15,12 +15,14 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-9 col-md-offset-3">
+
     @foreach($motors as $coun => $motor)
             {{-- @if($coun < 3) --}}
-                <div class="col-md-3 {{$coun == 0 ? "col-md-offset-3": null}}">
+                <div class="col-md-3 ">
                     <div class="thumbnail">
                         <div class="well">{{$motor->name}}</div>
-                        <img src="{{ asset('images/dummy.jpg') }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
+                        <img src="{{ asset('images/'.$motor->image) }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
                         <div class="caption">
                             @if(\Auth::guest())
                             <a href="{{url('login')}}" class="btn btn-success form-control">Reserve</a>
@@ -34,14 +36,13 @@
                 </div>
             {{-- @endif --}}
     @endforeach
-</div>
-<div class="row">
+
     @foreach($parts as $part)
             {{-- @if($coun < 3) --}}
-                <div class="col-md-3 {{$coun == 0 ? "col-md-offset-3": null}}">
+                <div class="col-md-3 ">
                     <div class="thumbnail">
                         <div class="well">{{$part->name}}</div>
-                        <img src="{{ asset('images/dummy.jpg') }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
+                        <img src="{{ asset('images/'.$part->image) }}" alt="X" height="231" width="231" class="img-thumbnail img-responsive">
                         <div class="caption">
                             @if(\Auth::guest())
                             <a href="{{url('login')}}" class="btn btn-success form-control">Reserve</a>
@@ -55,6 +56,9 @@
                 </div>
             {{-- @endif --}}
     @endforeach
+    </div>
+</div>
+<div class="row">
 </div>
 {{ csrf_field() }}
 @endsection

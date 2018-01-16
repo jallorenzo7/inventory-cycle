@@ -3,8 +3,16 @@
 <h2>Create Stock</h2>
 <div class="panel panel-default">
     <div class="panel-body">
-        <form action="{{ route('stock.store') }}" method="POST">
+        <form action="{{ route('stock.store') }}" method="POST"  enctype="multipart/form-data">
             {{ csrf_field() }}
+            <div class="row">
+                <div class="col s12">
+                    <center>
+                        <img src="{{url('images/dummy.jpg')}}" alt="avatar" id="avatar" height="300" width="300">
+                        <input type="file" name="img_src" id="img_src" class="hide"  accept="image/x-png,image/gif,image/jpeg">
+                    </center>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -115,6 +123,28 @@ $('#type').on('change',function(){
         $('#color').prop( "disabled", true).val('');
         $('#part_no').prop( "disabled", false);
     }
+});
+
+
+$('#avatar').on('click',function(){
+    $('#img_src').click();
+});
+
+function readURL(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#avatar').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#img_src").change(function() {
+  readURL(this);
 });
 </script>
 @endsection
