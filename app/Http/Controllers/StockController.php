@@ -33,7 +33,14 @@ class StockController extends Controller
         if (empty($request->discount)) {
             $request->discount = 0;
         }
-        $this->stock->fill($request->all())->save();
+        $data = $request->all();
+        if ($request->hasFile('img_src')) {
+            $latestUrl = $this->tempSaveToLocal($request);
+            if ($latestUrl) {
+                $data['image'] = $latestUrl;
+            }
+        }
+        $this->stock->fill($data)->save();
         return redirect()->route('stock.index');
     }
 
@@ -54,8 +61,16 @@ class StockController extends Controller
         if (empty($request->discount)) {
             $request->merge(['discount' => 0]);
         }
+        $data = $request->all();
+
+        if ($request->hasFile('img_src')) {
+            $latestUrl = $this->tempSaveToLocal($request);
+            if ($latestUrl) {
+                $data['image'] = $latestUrl;
+            }
+        }
         $stock = $this->stock->find($id)
-            ->update($request->all());
+            ->update($data);
         return redirect()->route('stock.index');
     }
 
@@ -106,4 +121,29 @@ class StockController extends Controller
         }
         return view('modules.cart.search', compact('items'));
     }
+
+    private function tempSaveToLocal($request)
+    {
+        $file = $request->file('img_src');
+        $orig = $file->getClientOriginalName();
+        $getType = explode('.', $orig);
+        $name = $this->generateRandomString() . "." . $getType[1];
+        $file->move("images/", $name);
+        $loc = public_path('images/' . $name);
+        // $loc = $file->getPathName();
+        // $latestUrl = $this->uploadFromPath($loc, $file->getMimeType());
+        return $name;
+    }
+
+    public function generateRandomString($length = 10)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
 }
