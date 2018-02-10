@@ -42,25 +42,25 @@
                         <input disabled type="text" class="form-control" id="model_no" name="model_no">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="engine_no">Engine No</label>
                         <input disabled type="text" class="form-control" id="engine_no" name="engine_no">
                     </div>
                 </div>
-                <div class="col-md-4">
+{{--                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="frame_no">Frame No</label>
                         <input disabled type="text" class="form-control" id="frame_no" name="frame_no">
                     </div>
-                </div>
-                <div class="col-md-4">
+                </div> --}}
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="color">Color</label>
                         <input disabled type="text" class="form-control" id="color" name="color">
                     </div>
                 </div>
-                <div class="col-md-4">
+                {{-- <div class="col-md-4">
                     <div class="form-group">
                         <label for="quantity">Quantity</label>
                         <input type="text" class="form-control" id="quantity" name="quantity">
@@ -71,7 +71,7 @@
                         <label for="initial_quantity">Initial Quantity</label>
                         <input type="text" class="form-control" id="initial_quantity" name="initial_quantity">
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="price">Price</label>

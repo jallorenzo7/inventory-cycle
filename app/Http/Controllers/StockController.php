@@ -12,6 +12,7 @@ class StockController extends Controller
     public function __construct(Stock $stock)
     {
         $this->stock = $stock;
+        $this->driver = env('DB_CONNECTION');
     }
 
     public function index()
@@ -82,12 +83,18 @@ class StockController extends Controller
 
     public function getMotor(Request $request)
     {
+
+        if ($this->driver == "pgsql") {
+            $like = "ilike";
+        } else {
+            $like = "like";
+        }
         if (isset($request->search)) {
-            $results = Stock::orWhere('name', 'like', '%' . $request->search . '%')->where('type', 'motor')->get();
+            $results = Stock::orWhere('name', $like, '%' . $request->search . '%')->where('type', 'motor')->get();
         } else {
             $results = Stock::where('type', 'motor')->get();
         }
-        $check = ['completed', 'on-going'];
+        $check = ['completed', 'on-going', 'wishlist'];
         $items = [];
         foreach ($results as $v) {
             if ($v->order()->first()) {
@@ -103,12 +110,18 @@ class StockController extends Controller
 
     public function getParts(Request $request)
     {
+
+        if ($this->driver == "pgsql") {
+            $like = "ilike";
+        } else {
+            $like = "like";
+        }
         if (isset($request->search)) {
-            $results = Stock::orWhere('name', 'like', '%' . $request->search . '%')->where('type', 'part')->get();
+            $results = Stock::orWhere('name', $like, '%' . $request->search . '%')->where('type', 'part')->get();
         } else {
             $results = Stock::where('type', 'part')->get();
         }
-        $check = ['completed', 'on-going'];
+        $check = ['completed', 'on-going', 'wishlist'];
         $items = [];
         foreach ($results as $v) {
             if ($v->order()->first()) {
@@ -119,6 +132,7 @@ class StockController extends Controller
             }
             $items[] = $v;
         }
+
         return view('modules.cart.search', compact('items'));
     }
 
@@ -146,4 +160,8 @@ class StockController extends Controller
         return $randomString;
     }
 
+    public function getClick(Request $request)
+    {
+        return Stock::find($request->id);
+    }
 }
