@@ -35,7 +35,7 @@
                           <strong>SALE!</strong>
                         </div>
                         @endif --}}
-                        <img src="{{ asset('images/'.$item->image) }}" alt="X" height="231" width="231" data-id="{{$item->id}}" id="imgClick" class="img-thumbnail img-responsive">
+                        <img src="{{ $item->image === 'dummy.jpg' ? asset('images/'.$item->image) : $item->image }}" alt="X" height="231" width="231" data-id="{{$item->id}}" id="imgClick" class="img-thumbnail img-responsive">
                         <div class="caption">
                             <center> <b><span>&#8369;&nbsp;{{ $item->price }}</span></b></center><br>
                             @if(\Auth::guest())
@@ -108,7 +108,12 @@
         jsonp: false,
         success: function(data){
             console.log(data);
-            var imig = "{{url('images')}}/"+data.image;
+            var imig = "";
+            if (data.image === "dummy.jpg") {
+            imig = "{{url('images')}}/"+data.image;
+            }else{
+            imig = data.image
+            }
             $('#myModal').modal();
             $('#imgModal').attr('src',imig);
             $('#nameModal').html(data.name);
@@ -124,9 +129,9 @@
             if (data.engine_no) {
                 $('#enModal').html('Engine No.: '+data.engine_no);
             }
-            if (data.frame_no) {
-                $('#fnModal').html('Frame No.: '+data.frame_no);
-            }
+            // if (data.frame_no) {
+            //     $('#fnModal').html('Frame No.: '+data.frame_no);
+            // }
             if (data.color) {
                 $('#colorModal').html('Color: '+data.color);
             }

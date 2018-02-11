@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col s12">
                             <center>
-                                <img src="{{url('images/'.$stock->image)}}" alt="avatar" id="avatar" height="300" width="300">
+                                <img src="{{ $stock->image === 'dummy.jpg' ? asset('images/'.$stock->image) : $stock->image }}" alt="avatar" id="avatar" height="300" width="300">
                                 <input type="file" name="img_src" id="img_src" class="hide"  accept="image/x-png,image/gif,image/jpeg">
                             </center>
                         </div>
