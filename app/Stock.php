@@ -27,4 +27,9 @@ class Stock extends Model
     {
         return $this->hasOne('App\Order', 'stock_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment', 'product_id');
+    }
 }

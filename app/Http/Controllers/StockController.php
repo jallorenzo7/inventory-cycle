@@ -97,15 +97,15 @@ class StockController extends Controller
         $check = ['completed', 'on-going', 'wishlist'];
         $items = [];
         foreach ($results as $v) {
-            if ($v->order()->first()) {
-                $order = $v->order()->first();
-                if (in_array($order->status, $check)) {
-                    continue;
-                }
-            }
+            // if ($v->order()->first()) {
+            //     $order = $v->order()->first();
+            //     if (in_array($order->status, $check)) {
+            //         continue;
+            //     }
+            // }
             $items[] = $v;
         }
-        return view('modules.cart.search', compact('items'));
+        return view('modules.cart.search', compact('items', 'check'));
     }
 
     public function getParts(Request $request)

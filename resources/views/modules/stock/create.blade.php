@@ -48,12 +48,12 @@
                         <input disabled type="text" class="form-control" id="engine_no" name="engine_no">
                     </div>
                 </div>
-{{--                 <div class="col-md-4">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="frame_no">Frame No</label>
                         <input disabled type="text" class="form-control" id="frame_no" name="frame_no">
                     </div>
-                </div> --}}
+                </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="color">Color</label>

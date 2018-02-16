@@ -62,7 +62,9 @@ class TransactionController extends Controller
     public function billingUpdate(Request $request)
     {
         $data = $request->all();
-
+        if (empty($data['amount_received'])) {
+            return redirect()->back();
+        }
         $order = $this->order->find($data['order_id']);
         $transactions = $order->transactions()->get();
         $price = 0;

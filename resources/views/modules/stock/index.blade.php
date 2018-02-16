@@ -13,7 +13,7 @@
                 <th>Part No</th>
                 <th>Model No</th>
                 <th>Engine No</th>
-                {{-- <th>Frame No</th> --}}
+                <th>Frame No</th>
                 <th>Color</th>
                 {{-- <th>Quantity</th>
                 <th>Initial Quantity</th> --}}
@@ -31,7 +31,7 @@
                 <td>{{ $stock->part_no }}</td>
                 <td>{{ $stock->model_no }}</td>
                 <td>{{ $stock->engine_no }}</td>
-                {{-- <td>{{ $stock->frame_no }}</td> --}}
+                <td>{{ $stock->frame_no }}</td>
                 <td>{{ $stock->color }}</td>
                 {{-- <td>{{ $stock->quantity }}</td>
                 <td>{{ $stock->initial_quantity }}</td> --}}

@@ -22,13 +22,13 @@
                 <td>{{ $order['discount'] }}</td>
                 <td>{{ $order['status'] }}</td>
                 <td>
-                    <form action="{{ route('order.destroy', $order['order_id']) }}" method="POST">
+                    {{-- <form action="{{ route('order.destroy', $order['order_id']) }}" method="POST">
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="DELETE" />
                         <button type="submit" class="btn btn-default">
                         <i class="fa fa-remove" aria-hidden="true"></i>
                         </button>
-                    </form>
+                    </form> --}}
 
                     <a href="{{ url('billing/edit/'. $order['order_id']) }}">
                     <button class="btn btn-default">

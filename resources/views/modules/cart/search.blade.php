@@ -35,20 +35,24 @@
                           <strong>SALE!</strong>
                         </div>
                         @endif --}}
-                        <img src="{{ asset('images/'.$item->image) }}" alt="X" height="231" width="231" data-id="{{$item->id}}" id="imgClick" class="img-thumbnail img-responsive">
+                        <img src="{{ asset('images/'.$item->image) }}" data-target="#myModal-{{$item->id}}" alt="X" height="231" width="231" data-id="{{$item->id}}"  data-toggle="modal" class="img-thumbnail img-responsive">
                         <div class="caption">
                             <center> <b><span>&#8369;&nbsp;{{ $item->price }}</span></b></center><br>
-                            @if(\Auth::guest())
-                            <a href="{{url('login')}}" class="btn btn-success form-control">Reserve</a>
-                            @else
-                            <button class="btn form-control {{ \Auth::user()->orders()->where('stock_id', $item->id)->count() ? "btn-danger":"btn-success" }}" data-id="{{$item->id}}" id="btn_reserve">
-                            {{ \Auth::user()->orders()->where('stock_id', $item->id)->count() ? "Remove from Wishlist": "Reserve" }}
-                            </button>
+                            @if(empty($item->order()->first()))
+                                @if(\Auth::guest())
+                                    <a href="{{url('login')}}" class="btn btn-success form-control">Reserve</a>
+                                @else
+                                    <button class="btn form-control {{ \Auth::user()->orders()->where('stock_id', $item->id)->count() ? "btn-danger":"btn-success" }}" data-id="{{$item->id}}" id="btn_reserve">
+                                    {{ \Auth::user()->orders()->where('stock_id', $item->id)->count() ? "Remove from Wishlist": "Reserve" }}
+                                    </button>
+                                @endif
                             @endif
                         </div>
                     </div>
                 </div>
             {{-- @endif --}}
+        @include('modules.cart.includes.search_modal', $item)
+
     @endforeach
 </div>
 @include('modules.cart.includes.search_modal')
@@ -96,48 +100,48 @@
 </script>
 @endif
 <script>
-    $(document).on('click','[id=imgClick]', function(){
-        var id = $(this).data('id');
-        var route = "{{url('/get/search')}}";
-        $.ajax({
-        method: 'get',
-        url: route,
-        data:{
-            'id': id
-            },
-        jsonp: false,
-        success: function(data){
-            console.log(data);
-            var imig = "{{url('images')}}/"+data.image;
-            $('#myModal').modal();
-            $('#imgModal').attr('src',imig);
-            $('#nameModal').html(data.name);
-            if (data.name) {
-                $('#naModal').html('Name: '+data.name);
-            }
-            if (data.part_no) {
-                $('#partModal').html('Part No.: '+data.part_no);
-            }
-            if (data.model_no) {
-                $('#moModal').html('Model No.: '+data.model_no);
-            }
-            if (data.engine_no) {
-                $('#enModal').html('Engine No.: '+data.engine_no);
-            }
-            if (data.frame_no) {
-                $('#fnModal').html('Frame No.: '+data.frame_no);
-            }
-            if (data.color) {
-                $('#colorModal').html('Color: '+data.color);
-            }
-            if (data.price) {
-                $('#prModal').html('Price: '+data.price);
-            }
-            if (data.remarks) {
-                $('#rmModal').html('Remarks: '+data.remarks);
-            }
-        }
-        });
-    });
+    // $(document).on('click','[id=imgClick]', function(){
+    //     var id = $(this).data('id');
+    //     var route = "{{url('/get/search')}}";
+    //     $.ajax({
+    //     method: 'get',
+    //     url: route,
+    //     data:{
+    //         'id': id
+    //         },
+    //     jsonp: false,
+    //     success: function(data){
+    //         console.log(data);
+    //         var imig = "{{url('images')}}/"+data.image;
+    //         $('#myModal').modal();
+    //         $('#imgModal').attr('src',imig);
+    //         $('#nameModal').html(data.name);
+    //         if (data.name) {
+    //             $('#naModal').html('Name: '+data.name);
+    //         }
+    //         if (data.part_no) {
+    //             $('#partModal').html('Part No.: '+data.part_no);
+    //         }
+    //         if (data.model_no) {
+    //             $('#moModal').html('Model No.: '+data.model_no);
+    //         }
+    //         if (data.engine_no) {
+    //             $('#enModal').html('Engine No.: '+data.engine_no);
+    //         }
+    //         if (data.frame_no) {
+    //             $('#fnModal').html('Frame No.: '+data.frame_no);
+    //         }
+    //         if (data.color) {
+    //             $('#colorModal').html('Color: '+data.color);
+    //         }
+    //         if (data.price) {
+    //             $('#prModal').html('Price: '+data.price);
+    //         }
+    //         if (data.remarks) {
+    //             $('#rmModal').html('Remarks: '+data.remarks);
+    //         }
+    //     }
+    //     });
+    // });
 </script>
 @endsection
