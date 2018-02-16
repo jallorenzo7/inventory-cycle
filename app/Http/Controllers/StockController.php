@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Stock;
 use Illuminate\Http\Request;
 
@@ -195,4 +196,19 @@ class StockController extends Controller
     {
         return Stock::find($request->id);
     }
+
+    public function addComment(Request $request)
+    {
+        $value = $request->all();
+        $comment = new Comment;
+        $comment->fill($value)->save();
+        return back();
+    }
+
+    public function deleteComment(Request $request)
+    {
+        Comment::find($request->id)->delete();
+        return back();
+    }
+
 }

@@ -32,3 +32,7 @@ Route::get('/transaction-report', 'OrderController@transactionReport')->name('tr
 
 Route::post('/billing/discount', 'TransactionController@billingDiscount');
 Route::get('/get/search', 'StockController@getClick');
+Route::post('/add/comment', 'StockController@addComment');
+Route::post('/add/delete', 'StockController@deleteComment');
+
+Route::get('/statement-of-account/{id}', 'TransactionController@fucked')->name('tadow');

@@ -94,6 +94,8 @@
         @endif
     </div>
     <div class="row">
+        <a target="_blank" href="{{route('tadow', $order->id)}}" class="btn btn-primary form-control">Print</a>
+        <hr>
         <div class="panel panel-default">
             <div class="panel-body">
                 <table id="billing-table">
@@ -124,6 +126,7 @@
     $(document).ready(function(){
         $('#billing-table').DataTable();
     });
+
 
     $('[id=amount_received]').on('keyup', function(){
         var amount = $(this).val();

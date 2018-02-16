@@ -17,6 +17,22 @@ class TransactionController extends Controller
         $this->order = $order;
     }
 
+    public function fucked($id)
+    {
+        $order = $this->order->find($id);
+        $transactions = $order->transactions()->get();
+        $price = 0;
+
+        if ($order->transactions()->count() === 0) {
+            $price = (float) $order->stock()->first()->price;
+        } else {
+            foreach ($transactions as $t) {
+                $price = (float) $t->total;
+            }
+        }
+        return view('modules.billing.fuck', compact('order', 'price', 'transactions'));
+    }
+
     public function index()
     {
         $orders = $this->order->get();
