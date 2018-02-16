@@ -8,7 +8,7 @@
       </div>
       <div class="modal-body">
         <center>
-          <img id="imgModal" src="{{ asset('images/'.$item->image) }}" width="500">
+          <img id="imgModal" src="{{ $item->image === 'dummy.jpg' ? asset('images/'.$item->image) : $item->image }}" width="500">
         </center>
         <br>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="naModal">Name: {{ $item->name }}</b><br>

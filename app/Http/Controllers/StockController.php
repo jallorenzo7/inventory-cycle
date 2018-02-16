@@ -65,6 +65,7 @@ class StockController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('img_src')) {
+            $this->deleteUploadcare($id);
             $latestUrl = $this->tempSaveToLocal($request);
             if ($latestUrl) {
                 $data['image'] = $latestUrl;
@@ -139,14 +140,44 @@ class StockController extends Controller
     private function tempSaveToLocal($request)
     {
         $file = $request->file('img_src');
-        $orig = $file->getClientOriginalName();
-        $getType = explode('.', $orig);
-        $name = $this->generateRandomString() . "." . $getType[1];
-        $file->move("images/", $name);
-        $loc = public_path('images/' . $name);
-        // $loc = $file->getPathName();
-        // $latestUrl = $this->uploadFromPath($loc, $file->getMimeType());
-        return $name;
+        // $orig = $file->getClientOriginalName();
+        // $getType = explode('.', $orig);
+        // $name = $this->generateRandomString() . "." . $getType[1];
+        // $file->move("images/", $name);
+        // $loc = public_path('images/' . $name);
+        $loc = $file->getPathName();
+        $latestUrl = $this->uploadFromPath($loc, $file->getMimeType());
+        return $latestUrl;
+    }
+
+    private function uploadFromPath($filePath, $name)
+    {
+        $api = new \Uploadcare\Api(env('UC_PLACES_PUBLIC'), env('UC_PLACES_SECRET'));
+        try {
+            $file = $api->uploader->fromPath($filePath, $name);
+            $file->store();
+        } catch (\Exception $e) {
+            return null;
+        }
+
+        return $file->getUrl();
+    }
+
+    private function deleteUploadcare($id)
+    {
+        $image = Stock::find($id);
+        $get_id = explode('/', $image->image);
+        if (!isset($get_id[1])) {
+            return null;
+        }
+        if ($get_id[1] !== "ucarecdn.com") {
+            return null;
+        }
+        $image_id = $get_id[sizeof($get_id) - 2];
+        $api = new \Uploadcare\Api(env('UC_PLACES_PUBLIC'), env('UC_PLACES_SECRET'));
+        $file = $api->getFile($image_id);
+        $file->delete();
+        return null;
     }
 
     public function generateRandomString($length = 10)
