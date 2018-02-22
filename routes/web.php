@@ -36,3 +36,5 @@ Route::post('/add/comment', 'StockController@addComment');
 Route::post('/add/delete', 'StockController@deleteComment');
 
 Route::get('/statement-of-account/{id}', 'TransactionController@fucked')->name('tadow');
+
+Route::get('/mission-vision', 'UserController@mv');

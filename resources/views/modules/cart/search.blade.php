@@ -27,7 +27,7 @@
 <div class="row">
     @foreach($items as $coun => $item)
             {{-- @if($coun < 3) --}}
-                <div class="col-md-3 {{$coun == 0 ? "col-md-offset-3": null}}">
+                <div class="col-md-3">
                     <div class="thumbnail">
                         <div class="well">{{$item->name}}</div>
 {{--                         @if($item->discount != "0")
